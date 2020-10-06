@@ -1,21 +1,42 @@
 package com.jaeheonshim.bedwars;
 
 import org.bukkit.*;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
 public class BedwarsGame implements Disposable {
+    private World world;
     private List<ItemGen> itemGens = new ArrayList<>();
     private List<BedwarsTeam> teams = new ArrayList<>();
+    private List<Location> itemShops = new ArrayList<>();
+    private List<LivingEntity> shopVillagers = new ArrayList<>();
 
     public BedwarsGame() {
-        itemGens.add(new EmeraldGen(new Location(Bukkit.getServer().getWorlds().get(0), 0, 100.5, 0)));
-        itemGens.add(new EmeraldGen(new Location(Bukkit.getServer().getWorlds().get(0), -19, 100.6, 0)));
-        itemGens.add(new IronGen(new Location(Bukkit.getServer().getWorlds().get(0), -14, 101, 26)));
-        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(Bukkit.getServer().getWorlds().get(0), -14, 101, 20), new Location(Bukkit.getServer().getWorlds().get(0), -14, 102, 24));
+        world = Bukkit.getServer().getWorlds().get(0);
+        itemGens.add(new EmeraldGen(new Location(world, 0, 100.5, 0)));
+        itemGens.add(new EmeraldGen(new Location(world, -19, 100.6, 0)));
+        itemGens.add(new IronGen(new Location(world, -14, 101, 26)));
+        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(Bukkit.getServer().getWorlds().get(0), -14, 102, 24));
         sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
         teams.add(sampleTeam);
+
+        itemShops.add(new Location(world, -19, 102, 24));
+
+        init();
+    }
+
+    public void init() {
+        for(Location location : itemShops) {
+            LivingEntity villager = ((LivingEntity) location.getWorld().spawnEntity(location.add(0.5, 0, 0.5), EntityType.VILLAGER));
+            villager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 10000, false, false));
+            villager.setCollidable(false);
+            villager.setCustomName(ChatColor.AQUA + "ITEM SHOP");
+            villager.setCustomNameVisible(true);
+            shopVillagers.add(villager);
+        }
     }
 
     public void tick(long delta) {
@@ -67,5 +88,17 @@ public class BedwarsGame implements Disposable {
         for(ItemGen gen : itemGens) {
             gen.dispose();
         }
+
+        for(LivingEntity entity : shopVillagers) {
+            entity.remove();
+        }
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public List<LivingEntity> getShopVillagers() {
+        return new ArrayList<>(shopVillagers);
     }
 }

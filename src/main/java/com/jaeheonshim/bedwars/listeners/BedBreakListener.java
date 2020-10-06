@@ -1,5 +1,8 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.listeners;
 
+import com.jaeheonshim.bedwars.BedwarsGame;
+import com.jaeheonshim.bedwars.BedwarsGameManager;
+import com.jaeheonshim.bedwars.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;

@@ -1,5 +1,7 @@
 package com.jaeheonshim.bedwars;
 
+import org.bukkit.World;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,16 @@ public class BedwarsGameManager implements Disposable {
         for(BedwarsTeam team : game.getTeams()) {
             if(team.getTeamPlayers().containsKey(uuid)) {
                 return team.getTeamPlayers().get(uuid);
+            }
+        }
+
+        return null;
+    }
+
+    public BedwarsGame getBedwarsGame(World world) {
+        for(BedwarsGame game : bedwarsGames) {
+            if(game.getWorld().equals(world)) {
+                return game;
             }
         }
 

@@ -2,6 +2,7 @@ package com.jaeheonshim.bedwars;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -84,7 +85,7 @@ public class BedwarsPlayer {
                 player.removePotionEffect(PotionEffectType.INVISIBILITY);
             }
 
-            if(player.getAllowFlight()) {
+            if(player.getAllowFlight() && player.getGameMode() == GameMode.SURVIVAL) {
                 player.setAllowFlight(false);
                 player.setFlying(false);
             }
