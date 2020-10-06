@@ -30,6 +30,21 @@ public class BedwarsGameManager implements Disposable {
         return null;
     }
 
+    public BedwarsPlayer getBedwarsPlayer(String uuid) {
+        BedwarsGame game = getGameOfPlayer(uuid);
+        if(game == null) {
+            return null;
+        }
+
+        for(BedwarsTeam team : game.getTeams()) {
+            if(team.getTeamPlayers().containsKey(uuid)) {
+                return team.getTeamPlayers().get(uuid);
+            }
+        }
+
+        return null;
+    }
+
     public static BedwarsGameManager getInstance() {
         if(instance == null) {
             instance = new BedwarsGameManager();

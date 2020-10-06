@@ -7,6 +7,7 @@ public class BedwarsPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(new BedBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerDamageListener(), this);
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new GameTicker(), 0, 10);
     }
 
