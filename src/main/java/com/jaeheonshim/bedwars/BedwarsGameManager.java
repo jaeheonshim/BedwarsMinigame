@@ -3,7 +3,7 @@ package com.jaeheonshim.bedwars;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BedwarsGameManager {
+public class BedwarsGameManager implements Disposable {
     private static BedwarsGameManager instance;
 
     private List<BedwarsGame> bedwarsGames = new ArrayList<>();
@@ -18,11 +18,30 @@ public class BedwarsGameManager {
         }
     }
 
+    public BedwarsGame getGameOfPlayer(String uuid) {
+        for(BedwarsGame game : bedwarsGames) {
+            for(BedwarsTeam team : game.getTeams()) {
+                if (team.getTeamPlayers().containsKey(uuid)) {
+                    return game;
+                }
+            }
+        }
+
+        return null;
+    }
+
     public static BedwarsGameManager getInstance() {
         if(instance == null) {
             instance = new BedwarsGameManager();
         }
 
         return instance;
+    }
+
+    @Override
+    public void dispose() {
+        for(BedwarsGame game : bedwarsGames) {
+            game.dispose();
+        }
     }
 }

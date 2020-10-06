@@ -6,9 +6,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.time.Duration;
 
-public class DiamondGen extends ItemGen {
-    public DiamondGen(Location location) {
-        super(new ItemStack(Material.DIAMOND), Duration.ofMinutes(1).plus(Duration.ofSeconds(30)).toMillis(), location);
+public class IronGen extends ItemGen {
+    public IronGen(Location location) {
+        super(new ItemStack(Material.IRON_INGOT), Duration.ofSeconds(1).toMillis(), location);
     }
 
     @Override

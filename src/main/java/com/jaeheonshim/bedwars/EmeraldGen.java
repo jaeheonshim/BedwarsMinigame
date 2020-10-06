@@ -24,4 +24,9 @@ public class EmeraldGen extends ItemGen {
         long secs = Math.round((intervalMillis - spawnTimer) / 1000.0);
         as.setCustomName(ChatColor.BOLD + "" +ChatColor.GREEN + "Spawning emerald in: " + ChatColor.AQUA + secs + ChatColor.GREEN + " seconds");
     }
+
+    @Override
+    public void dispose() {
+        as.remove();
+    }
 }

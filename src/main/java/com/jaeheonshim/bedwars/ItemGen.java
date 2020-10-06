@@ -7,7 +7,7 @@ import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-public abstract class ItemGen {
+public abstract class ItemGen implements Disposable {
     private ItemStack itemSpawn;
     protected long intervalMillis;
     protected Location spawnLocation;
