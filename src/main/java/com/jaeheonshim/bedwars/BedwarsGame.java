@@ -13,14 +13,20 @@ public class BedwarsGame implements Disposable {
         itemGens.add(new EmeraldGen(new Location(Bukkit.getServer().getWorlds().get(0), 0, 100.5, 0)));
         itemGens.add(new EmeraldGen(new Location(Bukkit.getServer().getWorlds().get(0), -19, 100.6, 0)));
         itemGens.add(new IronGen(new Location(Bukkit.getServer().getWorlds().get(0), -14, 101, 26)));
-        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(Bukkit.getServer().getWorlds().get(0), -14, 101, 20));
-        sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b"));
+        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(Bukkit.getServer().getWorlds().get(0), -14, 101, 20), new Location(Bukkit.getServer().getWorlds().get(0), -14, 102, 24));
+        sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
         teams.add(sampleTeam);
     }
 
     public void tick(long delta) {
         for(ItemGen gen : itemGens) {
             gen.tick(delta);
+        }
+
+        for(BedwarsTeam team : teams) {
+            for(BedwarsPlayer player : team.getTeamPlayers().values()) {
+                player.tick(delta);
+            }
         }
     }
 

@@ -9,11 +9,13 @@ public class BedwarsTeam {
     private Color bedColor;
     private boolean isBedBroken;
     private Location bedLocation;
+    private Location respawnLocation;
 
     private Map<String, BedwarsPlayer> teamPlayers = new HashMap();
 
-    public BedwarsTeam(Location bedLocation) {
+    public BedwarsTeam(Location bedLocation, Location respawnLocation) {
         this.bedLocation = bedLocation;
+        this.respawnLocation = respawnLocation;
     }
 
     public void addPlayer(BedwarsPlayer player) {
@@ -38,5 +40,9 @@ public class BedwarsTeam {
 
     public boolean isBedBroken() {
         return isBedBroken;
+    }
+
+    public Location getRespawnLocation() {
+        return respawnLocation;
     }
 }
