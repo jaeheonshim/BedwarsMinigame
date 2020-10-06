@@ -100,4 +100,8 @@ public class BedwarsPlayer {
             player.sendMessage(ChatColor.GREEN + "Respawned!");
         }
     }
+
+    public BedwarsTeam getTeam() {
+        return team;
+    }
 }

@@ -2,20 +2,22 @@ package com.jaeheonshim.bedwars;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 import java.util.*;
 
 public class BedwarsTeam {
-    private Color bedColor;
+    private Material wool;
     private boolean isBedBroken;
     private Location bedLocation;
     private Location respawnLocation;
 
     private Map<String, BedwarsPlayer> teamPlayers = new HashMap();
 
-    public BedwarsTeam(Location bedLocation, Location respawnLocation) {
+    public BedwarsTeam(Location bedLocation, Location respawnLocation, Material wool) {
         this.bedLocation = bedLocation;
         this.respawnLocation = respawnLocation;
+        this.wool = wool;
     }
 
     public void addPlayer(BedwarsPlayer player) {
@@ -26,8 +28,8 @@ public class BedwarsTeam {
         return teamPlayers;
     }
 
-    public Color getBedColor() {
-        return bedColor;
+    public Material getWool() {
+        return wool;
     }
 
     public void setBedBroken(boolean bedBroken) {
@@ -45,4 +47,5 @@ public class BedwarsTeam {
     public Location getRespawnLocation() {
         return respawnLocation;
     }
+
 }

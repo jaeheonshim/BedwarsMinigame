@@ -2,7 +2,7 @@ package com.jaeheonshim.bedwars.listeners;
 
 import com.jaeheonshim.bedwars.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
-import com.jaeheonshim.bedwars.BedwarsShop;
+import com.jaeheonshim.bedwars.shop.BedwarsShop;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
