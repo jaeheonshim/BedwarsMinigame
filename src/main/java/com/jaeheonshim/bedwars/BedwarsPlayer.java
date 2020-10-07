@@ -19,8 +19,11 @@ public class BedwarsPlayer {
     private boolean isDead;
     private long deathMessageTimer;
     private long respawnTimer = -1;
+    private long pvpTagTimer;
 
     private BedwarsTeam team;
+
+    private String pvpTagUuid;
 
     public BedwarsPlayer(String uuid, BedwarsTeam team) {
         this.uuid = uuid;
@@ -53,6 +56,15 @@ public class BedwarsPlayer {
             return;
         }
 
+        handleTickDeathLogic(delta, player);
+
+        pvpTagTimer -= delta;
+        if(pvpTagTimer <= 0) {
+            pvpTagUuid = null;
+        }
+    }
+
+    private void handleTickDeathLogic(long delta, Player player) {
         if(isDead) {
             if(!player.getAllowFlight()) {
                 player.setAllowFlight(true);
@@ -100,6 +112,15 @@ public class BedwarsPlayer {
         }
 
         player.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
+    }
+
+    public void tagPvp(String uuid) {
+        pvpTagUuid = uuid;
+        pvpTagTimer = Duration.ofSeconds(10).toMillis();
+    }
+
+    public String getPvpTaggedUuid() {
+        return pvpTagUuid;
     }
 
     public BedwarsTeam getTeam() {

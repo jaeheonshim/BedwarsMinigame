@@ -21,6 +21,7 @@ public class BedwarsGame implements Disposable {
         itemGens.add(new IronGen(new Location(world, -14, 101, 26)));
         BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(Bukkit.getServer().getWorlds().get(0), -14, 102, 24), Material.BLUE_WOOL);
         sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
+        sampleTeam.addPlayer(new BedwarsPlayer("4751d842-0779-4632-adac-852ec5e3b6de", sampleTeam));
         teams.add(sampleTeam);
 
         itemShops.add(new Location(world, -19, 102, 24));
@@ -81,6 +82,17 @@ public class BedwarsGame implements Disposable {
 
     public List<BedwarsTeam> getTeams() {
         return teams;
+    }
+    
+    public void broadcastMessage(String message) {
+        for(BedwarsTeam team : teams) {
+            for(BedwarsPlayer player : team.getTeamPlayers().values()) {
+                Player playerBukkit = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
+                if(playerBukkit != null) {
+                    playerBukkit.sendMessage(message);
+                }
+            }
+        }
     }
 
     @Override
