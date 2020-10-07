@@ -1,10 +1,8 @@
 package com.jaeheonshim.bedwars;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -100,6 +98,8 @@ public class BedwarsPlayer {
             player.teleport(this.team.getRespawnLocation().setDirection(new Vector(0, 0, 1)));
             player.sendMessage(ChatColor.GREEN + "Respawned!");
         }
+
+        player.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
     }
 
     public BedwarsTeam getTeam() {

@@ -57,6 +57,11 @@ public class BedwarsShop {
                 if (playerInventory.containsAtLeast(new ItemStack(item.getMaterial()), item.getCost())) {
                     removeItem(player, new ItemStack(item.getMaterial()), item.getCost());
                     playerInventory.addItem(item.getItem(bedwarsPlayer));
+
+                    if(Util.swords.contains(item.getItem(bedwarsPlayer).getType()) && playerInventory.containsAtLeast(new ItemStack(Material.WOODEN_SWORD), 1)) {
+                        removeItem(player, new ItemStack(Material.WOODEN_SWORD), 1);
+                    }
+
                     player.updateInventory();
                     player.sendMessage(ChatColor.GREEN + "You purchased " + item.getName() + ".");
                     player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 10, 7);

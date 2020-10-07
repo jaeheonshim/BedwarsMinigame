@@ -42,6 +42,8 @@ public class Util {
             Material.BLACK_WOOL
     );
 
+    public static final List<Material> swords = Arrays.asList(Material.WOODEN_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.DIAMOND_SWORD);
+
     public static final String friendlyCurrencyName(Material material) {
         switch(material) {
             case IRON_INGOT:
