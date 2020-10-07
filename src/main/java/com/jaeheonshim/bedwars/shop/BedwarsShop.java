@@ -10,10 +10,7 @@ import com.jaeheonshim.bedwars.shop.blocks.EndStoneItem;
 import com.jaeheonshim.bedwars.shop.blocks.ObsidianItem;
 import com.jaeheonshim.bedwars.shop.blocks.WoodItem;
 import com.jaeheonshim.bedwars.shop.blocks.WoolItem;
-import com.jaeheonshim.bedwars.shop.weapons.DiamondSwordItem;
-import com.jaeheonshim.bedwars.shop.weapons.IronSwordItem;
-import com.jaeheonshim.bedwars.shop.weapons.KnockbackStickItem;
-import com.jaeheonshim.bedwars.shop.weapons.StoneSwordItem;
+import com.jaeheonshim.bedwars.shop.weapons.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -31,8 +28,8 @@ import java.util.List;
 public class BedwarsShop {
     private static final List<ShopItem> items = Arrays.asList(
             null, null, null, null, null, null, null, null, null,
-            null, new WoolItem(), new WoodItem(), new EndStoneItem(), new ObsidianItem(), null, null, null, null,
-            null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem(), null, null, null, null,
+            null, new WoolItem(), new WoodItem(), new EndStoneItem(), new ObsidianItem(), null, new PickaxeItem(), new ShearsItem(), null,
+            null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem(), null, new AxeItem(), null, null,
             null, new ChainmailArmorItem(), new IronArmorItem(), new DiamondArmorItem()
     );
     public static final String TITLE = "Item Shop";
