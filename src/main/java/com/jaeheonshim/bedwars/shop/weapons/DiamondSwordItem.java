@@ -1,27 +1,28 @@
-package com.jaeheonshim.bedwars.shop;
+package com.jaeheonshim.bedwars.shop.weapons;
 
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
+import com.jaeheonshim.bedwars.shop.ShopItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class EndStoneItem implements ShopItem {
+public class DiamondSwordItem extends ShopItem {
     @Override
     public Material getMaterial() {
-        return Material.IRON_INGOT;
+        return Material.EMERALD;
     }
 
     @Override
     public int getCost() {
-        return 24;
+        return 4;
     }
 
     @Override
     public ItemStack getItem(BedwarsPlayer player) {
-        return new ItemStack(Material.END_STONE, 12);
+        return new ItemStack(Material.DIAMOND_SWORD, 1);
     }
 
     @Override
     public String getName() {
-        return null;
+        return "Diamond Sword";
     }
 }

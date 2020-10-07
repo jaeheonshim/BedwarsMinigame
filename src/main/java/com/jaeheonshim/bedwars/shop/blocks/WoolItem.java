@@ -1,13 +1,14 @@
-package com.jaeheonshim.bedwars.shop;
+package com.jaeheonshim.bedwars.shop.blocks;
 
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
+import com.jaeheonshim.bedwars.shop.ShopItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class DiamondSwordItem implements ShopItem {
+public class WoolItem extends ShopItem {
     @Override
     public Material getMaterial() {
-        return Material.EMERALD;
+        return Material.IRON_INGOT;
     }
 
     @Override
@@ -17,11 +18,11 @@ public class DiamondSwordItem implements ShopItem {
 
     @Override
     public ItemStack getItem(BedwarsPlayer player) {
-        return new ItemStack(Material.DIAMOND_SWORD, 1);
+        return new ItemStack(player.getTeam().getWool(), 16);
     }
 
     @Override
     public String getName() {
-        return "Diamond Sword";
+        return "Wool";
     }
 }

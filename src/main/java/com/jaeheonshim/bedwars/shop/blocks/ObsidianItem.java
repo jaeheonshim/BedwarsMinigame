@@ -1,10 +1,11 @@
-package com.jaeheonshim.bedwars.shop;
+package com.jaeheonshim.bedwars.shop.blocks;
 
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
+import com.jaeheonshim.bedwars.shop.ShopItem;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class ObsidianItem implements ShopItem {
+public class ObsidianItem extends ShopItem {
     @Override
     public Material getMaterial() {
         return Material.EMERALD;

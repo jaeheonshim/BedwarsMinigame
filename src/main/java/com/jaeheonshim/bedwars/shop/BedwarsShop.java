@@ -3,6 +3,17 @@ package com.jaeheonshim.bedwars.shop;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import com.jaeheonshim.bedwars.Util;
+import com.jaeheonshim.bedwars.shop.armor.ChainmailArmorItem;
+import com.jaeheonshim.bedwars.shop.armor.DiamondArmorItem;
+import com.jaeheonshim.bedwars.shop.armor.IronArmorItem;
+import com.jaeheonshim.bedwars.shop.blocks.EndStoneItem;
+import com.jaeheonshim.bedwars.shop.blocks.ObsidianItem;
+import com.jaeheonshim.bedwars.shop.blocks.WoodItem;
+import com.jaeheonshim.bedwars.shop.blocks.WoolItem;
+import com.jaeheonshim.bedwars.shop.weapons.DiamondSwordItem;
+import com.jaeheonshim.bedwars.shop.weapons.IronSwordItem;
+import com.jaeheonshim.bedwars.shop.weapons.KnockbackStickItem;
+import com.jaeheonshim.bedwars.shop.weapons.StoneSwordItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +32,8 @@ public class BedwarsShop {
     private static final List<ShopItem> items = Arrays.asList(
             null, null, null, null, null, null, null, null, null,
             null, new WoolItem(), new WoodItem(), new EndStoneItem(), new ObsidianItem(), null, null, null, null,
-            null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem()
+            null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem(), null, null, null, null,
+            null, new ChainmailArmorItem(), new IronArmorItem(), new DiamondArmorItem()
     );
     public static final String TITLE = "Item Shop";
 
@@ -55,7 +67,7 @@ public class BedwarsShop {
                 PlayerInventory playerInventory = player.getInventory();
                 if (playerInventory.containsAtLeast(new ItemStack(item.getMaterial()), item.getCost())) {
                     removeItem(player, new ItemStack(item.getMaterial()), item.getCost());
-                    playerInventory.addItem(item.getItem(bedwarsPlayer));
+                    item.modifyPlayer(bedwarsPlayer, player);
 
                     if(Util.swords.contains(item.getItem(bedwarsPlayer).getType()) && playerInventory.containsAtLeast(new ItemStack(Material.WOODEN_SWORD), 1)) {
                         removeItem(player, new ItemStack(Material.WOODEN_SWORD), 1);

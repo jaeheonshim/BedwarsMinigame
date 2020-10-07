@@ -41,6 +41,9 @@ public class BedwarsPlayer {
     public void handleDeath() {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
         player.getInventory().clear();
+        player.setFireTicks(0);
+        pvpTagUuid = null;
+
         isDead = true;
         if(player != null) {
             player.teleport(new Location(player.getWorld(), 0, 200, 0));
@@ -143,6 +146,13 @@ public class BedwarsPlayer {
                         colorLeatherArmor(new ItemStack(Material.LEATHER_HELMET))
                 };
         }
+    }
+
+    public void setArmorLevel(ArmorLevel armorLevel) {
+        this.armorLevel = armorLevel;
+
+        Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+        player.getInventory().setArmorContents(getArmor());
     }
 
     public ItemStack colorLeatherArmor(ItemStack item) {

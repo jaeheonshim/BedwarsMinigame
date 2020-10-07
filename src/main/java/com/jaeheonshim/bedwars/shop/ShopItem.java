@@ -2,23 +2,28 @@ package com.jaeheonshim.bedwars.shop;
 
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public interface ShopItem {
+public abstract class ShopItem {
     /**
      * Returns the type of ore is required to purchase this item
      * @return Bukkit Material enumeration
      */
-    Material getMaterial();
+    public abstract Material getMaterial();
 
-    int getCost();
+    public abstract int getCost();
 
     /**
      * Returns the item the player recieves when they purchase the item
      * @param player Player purchasing item (for customization)
      * @return The itemstack the player is purchasing
      */
-    ItemStack getItem(BedwarsPlayer player);
+    public abstract ItemStack getItem(BedwarsPlayer player);
 
-    String getName();
+    public abstract String getName();
+
+    public void modifyPlayer(BedwarsPlayer bwplayer, Player player) {
+        player.getInventory().addItem(getItem(bwplayer));
+    }
 }
