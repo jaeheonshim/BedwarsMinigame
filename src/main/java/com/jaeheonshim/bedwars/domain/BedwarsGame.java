@@ -1,5 +1,9 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.domain;
 
+import com.jaeheonshim.bedwars.Disposable;
+import com.jaeheonshim.bedwars.generator.EmeraldGen;
+import com.jaeheonshim.bedwars.generator.IronGen;
+import com.jaeheonshim.bedwars.generator.ItemGen;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;

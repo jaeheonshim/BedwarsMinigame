@@ -1,7 +1,7 @@
 package com.jaeheonshim.bedwars.listeners;
 
 import com.jaeheonshim.bedwars.BedwarsGameManager;
-import com.jaeheonshim.bedwars.BedwarsPlayer;
+import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import com.jaeheonshim.bedwars.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.UUID;
 

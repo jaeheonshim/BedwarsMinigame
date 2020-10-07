@@ -1,6 +1,7 @@
 package com.jaeheonshim.bedwars;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;

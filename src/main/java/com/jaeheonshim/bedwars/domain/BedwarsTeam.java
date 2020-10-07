@@ -1,6 +1,6 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.domain;
 
-import org.bukkit.Color;
+import com.jaeheonshim.bedwars.Util;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

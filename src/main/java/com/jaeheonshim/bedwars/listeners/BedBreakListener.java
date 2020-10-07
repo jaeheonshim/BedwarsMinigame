@@ -1,21 +1,15 @@
 package com.jaeheonshim.bedwars.listeners;
 
-import com.jaeheonshim.bedwars.BedwarsGame;
+import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.Util;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BedBreakListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)

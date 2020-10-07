@@ -1,7 +1,7 @@
 package com.jaeheonshim.bedwars.shop;
 
 import com.jaeheonshim.bedwars.BedwarsGameManager;
-import com.jaeheonshim.bedwars.BedwarsPlayer;
+import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import com.jaeheonshim.bedwars.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,7 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;

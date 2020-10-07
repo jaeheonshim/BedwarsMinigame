@@ -1,8 +1,11 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.domain;
 
 import org.bukkit.*;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -15,6 +18,7 @@ public class BedwarsPlayer {
     private int kills;
     private int finalKills;
     private int bedBreaks;
+    private ArmorLevel armorLevel = ArmorLevel.LEATHER;
 
     private boolean isDead;
     private long deathMessageTimer;
@@ -102,16 +106,52 @@ public class BedwarsPlayer {
             }
         }
     }
+    
+    public void init() {
+        Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+        player.setHealth(20);
+        player.getInventory().setArmorContents(getArmor());
+        player.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
+    }
 
     public void respawn() {
         isDead = false;
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+        
+        init();
+        
         if(player != null) {
             player.teleport(this.team.getRespawnLocation().setDirection(new Vector(0, 0, 1)));
             player.sendMessage(ChatColor.GREEN + "Respawned!");
         }
+    }
+    
+    public ItemStack[] getArmor() {
+        switch(armorLevel) {
+            case LEATHER:
+                return new ItemStack[] {
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_BOOTS)),
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_LEGGINGS)),
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_CHESTPLATE)),
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_HELMET))
+                };
+            default:
+                return new ItemStack[] {
+                        new ItemStack(Material.valueOf(armorLevel.name() + "_BOOTS")),
+                        new ItemStack(Material.valueOf(armorLevel.name() + "_LEGGINGS")),
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_CHESTPLATE)),
+                        colorLeatherArmor(new ItemStack(Material.LEATHER_HELMET))
+                };
+        }
+    }
 
-        player.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
+    public ItemStack colorLeatherArmor(ItemStack item) {
+        LeatherArmorMeta itemMeta = ((LeatherArmorMeta) item.getItemMeta());
+
+        itemMeta.setColor(team.getTeamColor().getColor());
+        item.setItemMeta(itemMeta);
+
+        return item;
     }
 
     public void tagPvp(String uuid) {

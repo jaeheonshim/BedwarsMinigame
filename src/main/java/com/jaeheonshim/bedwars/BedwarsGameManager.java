@@ -1,5 +1,8 @@
 package com.jaeheonshim.bedwars;
 
+import com.jaeheonshim.bedwars.domain.BedwarsGame;
+import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
+import com.jaeheonshim.bedwars.domain.BedwarsTeam;
 import org.bukkit.World;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.generator;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;

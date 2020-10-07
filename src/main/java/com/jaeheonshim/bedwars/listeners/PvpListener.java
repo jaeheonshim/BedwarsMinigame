@@ -1,8 +1,7 @@
 package com.jaeheonshim.bedwars.listeners;
 
 import com.jaeheonshim.bedwars.BedwarsGameManager;
-import com.jaeheonshim.bedwars.BedwarsPlayer;
-import org.bukkit.Bukkit;
+import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,6 +1,6 @@
 package com.jaeheonshim.bedwars.listeners;
 
-import com.jaeheonshim.bedwars.BedwarsGame;
+import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.shop.BedwarsShop;
 import org.bukkit.entity.Entity;

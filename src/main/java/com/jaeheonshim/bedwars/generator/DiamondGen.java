@@ -1,4 +1,4 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.generator;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -1,5 +1,6 @@
-package com.jaeheonshim.bedwars;
+package com.jaeheonshim.bedwars.generator;
 
+import com.jaeheonshim.bedwars.Disposable;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
