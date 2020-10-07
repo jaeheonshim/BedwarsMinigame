@@ -14,7 +14,7 @@ public class EntityDamageListener implements Listener {
         BedwarsGameManager manager = BedwarsGameManager.getInstance();
         if(manager.getBedwarsGame(event.getEntity().getLocation().getWorld()) != null) {
             if(event.getEntity().getType() == EntityType.VILLAGER) {
-                event.setCancelled(false);
+                event.setCancelled(true);
             }
         }
     }
