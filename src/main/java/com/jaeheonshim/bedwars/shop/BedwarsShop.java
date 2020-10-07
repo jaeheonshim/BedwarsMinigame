@@ -2,6 +2,7 @@ package com.jaeheonshim.bedwars.shop;
 
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.BedwarsPlayer;
+import com.jaeheonshim.bedwars.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,15 +20,25 @@ import java.util.List;
 // Note there should not be more than one of the same type of Material in the shop
 public class BedwarsShop {
     private static final List<ShopItem> items = Arrays.asList(
-            new WoolItem(),
-            new WoodItem()
+            null, null, null, null, null, null, null, null, null,
+            null, new WoolItem(), new WoodItem(), new EndStoneItem(), new ObsidianItem(), null, null, null, null,
+            null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem()
     );
-    public static final String TITLE = "Bedwars Shop";
+    public static final String TITLE = "Item Shop";
 
     public static Inventory getInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 9, TITLE);
-        for(ShopItem item : items) {
-            inventory.addItem(item.getItem(BedwarsGameManager.getInstance().getBedwarsPlayer(player.getUniqueId().toString())));
+        Inventory inventory = Bukkit.createInventory(null, 36, TITLE);
+        for(int i = 0; i < items.size(); i++) {
+            ShopItem item = items.get(i);
+            if(item != null) {
+                ItemStack itemStack = item.getItem(BedwarsGameManager.getInstance().getBedwarsPlayer(player.getUniqueId().toString()));
+                ItemMeta meta = itemStack.getItemMeta();
+                if(meta != null)
+                    meta.setLore(Arrays.asList(ChatColor.YELLOW + "" + ChatColor.BOLD + "COST: " + ChatColor.RESET + ChatColor.AQUA + item.getCost() + " " + Util.friendlyCurrencyName(item.getMaterial())));
+                itemStack.setItemMeta(meta);
+
+                inventory.setItem(i, itemStack);
+            }
         }
 
         return inventory;
@@ -40,8 +52,7 @@ public class BedwarsShop {
         BedwarsPlayer bedwarsPlayer = BedwarsGameManager.getInstance().getBedwarsPlayer(player.getUniqueId().toString());
 
         for(ShopItem item : items) {
-            Bukkit.getLogger().info(item.getMaterial().toString());
-            if(item.getItem(bedwarsPlayer).getType() == stack.getType()) {
+            if(item != null && item.getItem(bedwarsPlayer).getType() == stack.getType()) {
                 PlayerInventory playerInventory = player.getInventory();
                 if (playerInventory.containsAtLeast(new ItemStack(item.getMaterial()), item.getCost())) {
                     removeItem(player, new ItemStack(item.getMaterial()), item.getCost());

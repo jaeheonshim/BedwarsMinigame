@@ -2,10 +2,10 @@ package com.jaeheonshim.bedwars.shop;
 
 import com.jaeheonshim.bedwars.BedwarsPlayer;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public class WoodItem implements ShopItem {
+public class KnockbackStickItem implements ShopItem {
     @Override
     public Material getMaterial() {
         return Material.GOLD_INGOT;
@@ -13,16 +13,19 @@ public class WoodItem implements ShopItem {
 
     @Override
     public int getCost() {
-        return 4;
+        return 5;
     }
 
     @Override
     public ItemStack getItem(BedwarsPlayer player) {
-        return new ItemStack(Material.OAK_PLANKS, 16);
+        ItemStack itemStack = new ItemStack(Material.STICK, 1);
+        itemStack.addUnsafeEnchantment(Enchantment.KNOCKBACK, 5);
+
+        return itemStack;
     }
 
     @Override
     public String getName() {
-        return "Wood";
+        return "Knockback Stick";
     }
 }

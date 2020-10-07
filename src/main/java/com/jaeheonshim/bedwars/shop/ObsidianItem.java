@@ -3,12 +3,11 @@ package com.jaeheonshim.bedwars.shop;
 import com.jaeheonshim.bedwars.BedwarsPlayer;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-public class WoodItem implements ShopItem {
+public class ObsidianItem implements ShopItem {
     @Override
     public Material getMaterial() {
-        return Material.GOLD_INGOT;
+        return Material.EMERALD;
     }
 
     @Override
@@ -18,11 +17,11 @@ public class WoodItem implements ShopItem {
 
     @Override
     public ItemStack getItem(BedwarsPlayer player) {
-        return new ItemStack(Material.OAK_PLANKS, 16);
+    return new ItemStack(Material.OBSIDIAN, 4);
     }
 
     @Override
     public String getName() {
-        return "Wood";
+        return "Obsidian";
     }
 }

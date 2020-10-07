@@ -35,6 +35,7 @@ public class BedwarsPlayer {
 
     public void handleDeath() {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
+        player.getInventory().clear();
         isDead = true;
         if(player != null) {
             player.teleport(new Location(player.getWorld(), 0, 200, 0));

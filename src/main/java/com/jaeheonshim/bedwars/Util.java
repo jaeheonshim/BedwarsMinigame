@@ -41,4 +41,19 @@ public class Util {
             Material.RED_WOOL,
             Material.BLACK_WOOL
     );
+
+    public static final String friendlyCurrencyName(Material material) {
+        switch(material) {
+            case IRON_INGOT:
+                return "Iron";
+            case GOLD_INGOT:
+                return "Gold";
+            case EMERALD:
+                return "Emerald";
+            case DIAMOND:
+                return "Diamond";
+            default:
+                return null;
+        }
+    }
 }
