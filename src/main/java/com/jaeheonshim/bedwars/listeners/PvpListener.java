@@ -18,6 +18,11 @@ public class PvpListener implements Listener {
             BedwarsPlayer damagerPlayer = BedwarsGameManager.getInstance().getBedwarsPlayer(damager.getUniqueId().toString());
             BedwarsPlayer damagedPlayer = BedwarsGameManager.getInstance().getBedwarsPlayer(damaged.getUniqueId().toString());
 
+            if(damagerPlayer.getTeam().equals(damagedPlayer.getTeam())) {
+                event.setCancelled(true);
+                return;
+            }
+
             if(damagerPlayer != null && damagedPlayer != null) {
                 damagedPlayer.tagPvp(damagerPlayer.getUuid());
             }

@@ -1,23 +1,24 @@
 package com.jaeheonshim.bedwars;
 
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
 import java.util.*;
 
 public class BedwarsTeam {
-    private Material wool;
+    private DyeColor teamColor;
     private boolean isBedBroken;
     private Location bedLocation;
     private Location respawnLocation;
 
     private Map<String, BedwarsPlayer> teamPlayers = new HashMap();
 
-    public BedwarsTeam(Location bedLocation, Location respawnLocation, Material wool) {
+    public BedwarsTeam(Location bedLocation, Location respawnLocation, DyeColor teamColor) {
         this.bedLocation = bedLocation;
         this.respawnLocation = respawnLocation;
-        this.wool = wool;
+        this.teamColor = teamColor;
     }
 
     public void addPlayer(BedwarsPlayer player) {
@@ -29,7 +30,7 @@ public class BedwarsTeam {
     }
 
     public Material getWool() {
-        return wool;
+        return Util.getWoolFromDye(teamColor);
     }
 
     public void setBedBroken(boolean bedBroken) {
@@ -48,4 +49,7 @@ public class BedwarsTeam {
         return respawnLocation;
     }
 
+    public DyeColor getTeamColor() {
+        return teamColor;
+    }
 }

@@ -1,6 +1,10 @@
 package com.jaeheonshim.bedwars;
 
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.material.Wool;
 
 import java.util.*;
 
@@ -25,7 +29,6 @@ public class Util {
 
     public static final List<Material> wool = Arrays.asList(
             Material.WHITE_WOOL,
-            Material.ORANGE_WOOL,
             Material.PINK_WOOL,
             Material.LIGHT_BLUE_WOOL,
             Material.YELLOW_WOOL,
@@ -42,9 +45,45 @@ public class Util {
             Material.BLACK_WOOL
     );
 
+    public static final List<DyeColor> dyeColors = Arrays.asList(
+            DyeColor.WHITE,
+            DyeColor.PINK,
+            DyeColor.LIGHT_BLUE,
+            DyeColor.YELLOW,
+            DyeColor.LIME,
+            DyeColor.MAGENTA,
+            DyeColor.LIGHT_GRAY,
+            DyeColor.GRAY,
+            DyeColor.CYAN,
+            DyeColor.PURPLE,
+            DyeColor.BLUE,
+            DyeColor.BROWN,
+            DyeColor.GREEN,
+            DyeColor.RED,
+            DyeColor.BLACK
+    );
+
+    public static final List<ChatColor> chatColors = Arrays.asList(
+            ChatColor.WHITE,
+            ChatColor.LIGHT_PURPLE,
+            ChatColor.DARK_AQUA,
+            ChatColor.YELLOW,
+            ChatColor.GREEN,
+            ChatColor.DARK_PURPLE,
+            ChatColor.GRAY,
+            ChatColor.DARK_GRAY,
+            ChatColor.AQUA,
+            ChatColor.DARK_PURPLE,
+            ChatColor.BLUE,
+            ChatColor.GOLD,
+            ChatColor.DARK_GREEN,
+            ChatColor.RED,
+            ChatColor.BLACK
+    );
+
     public static final List<Material> swords = Arrays.asList(Material.WOODEN_SWORD, Material.STONE_SWORD, Material.IRON_SWORD, Material.DIAMOND_SWORD);
 
-    public static final String friendlyCurrencyName(Material material) {
+    public static String friendlyCurrencyName(Material material) {
         switch(material) {
             case IRON_INGOT:
                 return "Iron";
@@ -57,5 +96,14 @@ public class Util {
             default:
                 return null;
         }
+    }
+
+    public static Material getWoolFromDye(DyeColor color) {
+        return wool.get(dyeColors.indexOf(color));
+    }
+
+
+    public static ChatColor getChatFromDye(DyeColor color) {
+        return chatColors.get(dyeColors.indexOf(color));
     }
 }
