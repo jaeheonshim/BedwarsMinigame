@@ -5,6 +5,7 @@ import com.jaeheonshim.bedwars.BedwarsPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -17,7 +18,8 @@ import java.util.List;
 // Note there should not be more than one of the same type of Material in the shop
 public class BedwarsShop {
     private static final List<ShopItem> items = Arrays.asList(
-            new WoolItem()
+            new WoolItem(),
+            new WoodItem()
     );
     public static final String TITLE = "Bedwars Shop";
 
@@ -46,9 +48,11 @@ public class BedwarsShop {
                     playerInventory.addItem(item.getItem(bedwarsPlayer));
                     player.updateInventory();
                     player.sendMessage(ChatColor.GREEN + "You purchased " + item.getName() + ".");
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, 10, 7);
                     return true;
                 } else {
                     player.sendMessage(ChatColor.RED + "Not enough resources to purchase!");
+                    player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 10, 0);
                 }
             }
         }
