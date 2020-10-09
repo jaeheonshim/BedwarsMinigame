@@ -176,4 +176,8 @@ public class BedwarsPlayer {
     public BedwarsTeam getTeam() {
         return team;
     }
+
+    public ArmorLevel getArmorLevel() {
+        return armorLevel;
+    }
 }

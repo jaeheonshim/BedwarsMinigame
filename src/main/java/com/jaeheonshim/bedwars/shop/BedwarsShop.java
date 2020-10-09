@@ -63,8 +63,12 @@ public class BedwarsShop {
             if(item != null && item.getItem(bedwarsPlayer).getType() == stack.getType()) {
                 PlayerInventory playerInventory = player.getInventory();
                 if (playerInventory.containsAtLeast(new ItemStack(item.getMaterial()), item.getCost())) {
+                    String res = item.modifyPlayer(bedwarsPlayer, player);
+                    if(res != null) {
+                        player.sendMessage(res);
+                        return false;
+                    }
                     removeItem(player, new ItemStack(item.getMaterial()), item.getCost());
-                    item.modifyPlayer(bedwarsPlayer, player);
 
                     if(Util.swords.contains(item.getItem(bedwarsPlayer).getType()) && playerInventory.containsAtLeast(new ItemStack(Material.WOODEN_SWORD), 1)) {
                         removeItem(player, new ItemStack(Material.WOODEN_SWORD), 1);

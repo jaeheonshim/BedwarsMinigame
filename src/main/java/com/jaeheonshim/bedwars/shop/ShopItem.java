@@ -23,7 +23,9 @@ public abstract class ShopItem {
 
     public abstract String getName();
 
-    public void modifyPlayer(BedwarsPlayer bwplayer, Player player) {
+    public String modifyPlayer(BedwarsPlayer bwplayer, Player player) {
         player.getInventory().addItem(getItem(bwplayer));
+
+        return null;
     }
 }
