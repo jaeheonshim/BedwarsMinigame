@@ -1,6 +1,7 @@
 package com.jaeheonshim.bedwars.domain;
 
 import com.jaeheonshim.bedwars.Disposable;
+import com.jaeheonshim.bedwars.generator.DiamondGen;
 import com.jaeheonshim.bedwars.generator.EmeraldGen;
 import com.jaeheonshim.bedwars.generator.IronGen;
 import com.jaeheonshim.bedwars.generator.ItemGen;
@@ -20,8 +21,9 @@ public class BedwarsGame implements Disposable {
 
     public BedwarsGame() {
         world = Bukkit.getServer().getWorlds().get(0);
-        itemGens.add(new EmeraldGen(new Location(world, 0, 100.5, 0)));
-        itemGens.add(new EmeraldGen(new Location(world, -19, 100.6, 0)));
+        itemGens.add(new EmeraldGen(new Location(world, 0, 101, 0)));
+        itemGens.add(new EmeraldGen(new Location(world, -19, 101, 0)));
+        itemGens.add(new DiamondGen(new Location(world, 9, 101, 21)));
         itemGens.add(new IronGen(new Location(world, -14, 101, 26)));
         BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.BLUE);
         BedwarsTeam anotherTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.RED);

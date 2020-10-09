@@ -12,7 +12,7 @@ public class EmeraldGen extends ItemGen {
     private ArmorStand as;
 
     public EmeraldGen(Location location) {
-        super(new ItemStack(Material.EMERALD), Duration.ofSeconds(60).toMillis(), location);
+        super(new ItemStack(Material.EMERALD), Duration.ofMinutes(1).plus(Duration.ofSeconds(30)).toMillis(), location);
         as = location.getWorld().spawn(location, ArmorStand.class);
         as.setCustomNameVisible(true);
         as.setVisible(false);
@@ -21,7 +21,7 @@ public class EmeraldGen extends ItemGen {
     @Override
     public void tick(long delta) {
         super.tick(delta);
-        long secs = Math.round((intervalMillis - spawnTimer) / 1000.0);
+        long secs = Math.round((intervalMillis - spawnTimer) / 1000.0 + 1);
         as.setCustomName(ChatColor.BOLD + "" +ChatColor.GREEN + "Spawning emerald in: " + ChatColor.AQUA + secs + ChatColor.GREEN + " seconds");
     }
 
