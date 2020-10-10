@@ -1,6 +1,7 @@
 package com.jaeheonshim.bedwars.listeners;
 
 import com.jaeheonshim.bedwars.shop.BedwarsShop;
+import com.jaeheonshim.bedwars.shop.BedwarsTeamShop;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,8 +23,10 @@ public class InventoryClickListener implements Listener {
 
         if(inventoryView.getTitle().equals(BedwarsShop.getTitle())) {
             event.setCancelled(true);
-            Bukkit.getLogger().info("Purchasing an item");
             BedwarsShop.purchaseItem(player, clicked);
+        } else if(inventoryView.getTitle().equals(BedwarsTeamShop.TITLE)) {
+            event.setCancelled(true);
+            BedwarsTeamShop.purchaseItem(player, clicked);
         }
     }
 }

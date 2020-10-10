@@ -23,7 +23,7 @@ public class DiamondGen extends ItemGen implements Disposable {
     public void tick(long delta) {
         super.tick(delta);
         long secs = Math.round((intervalMillis - spawnTimer) / 1000.0 + 1);
-        as.setCustomName(ChatColor.BOLD + "" +ChatColor.AQUA + "Spawning diamond in: " + ChatColor.AQUA + secs + ChatColor.AQUA + " seconds");
+        as.setCustomName(ChatColor.BOLD + "" + ChatColor.AQUA + "Spawning diamond in: " + ChatColor.AQUA + secs + ChatColor.AQUA + " seconds");
     }
 
     @Override

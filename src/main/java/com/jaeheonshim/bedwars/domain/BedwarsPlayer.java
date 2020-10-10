@@ -1,6 +1,7 @@
 package com.jaeheonshim.bedwars.domain;
 
 import org.bukkit.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -114,7 +115,11 @@ public class BedwarsPlayer {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
         player.setHealth(20);
         player.getInventory().setArmorContents(getArmor());
-        player.getInventory().addItem(new ItemStack(Material.WOODEN_SWORD, 1));
+        ItemStack defaultSword = new ItemStack(Material.WOODEN_SWORD, 1);
+        if(team.isSharpness()) {
+            defaultSword.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+        }
+        player.getInventory().addItem(defaultSword);
     }
 
     public void respawn() {
@@ -179,5 +184,19 @@ public class BedwarsPlayer {
 
     public ArmorLevel getArmorLevel() {
         return armorLevel;
+    }
+
+    public void updateSharpness() {
+        if(team.isSharpness()) {
+            Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+            if(player == null) return;
+
+            for(ItemStack stack : player.getInventory().getContents()) {
+                if(stack != null && (stack.getType() == Material.WOODEN_SWORD || stack.getType() == Material.STONE_SWORD || stack.getType() == Material.IRON_SWORD || stack.getType() == Material.DIAMOND_SWORD)) {
+                    if(!stack.getEnchantments().containsKey(Enchantment.DAMAGE_ALL))
+                        stack.addEnchantment(Enchantment.DAMAGE_ALL, 3);
+                }
+            }
+        }
     }
 }

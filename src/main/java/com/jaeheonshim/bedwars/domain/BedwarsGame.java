@@ -1,10 +1,8 @@
 package com.jaeheonshim.bedwars.domain;
 
 import com.jaeheonshim.bedwars.Disposable;
-import com.jaeheonshim.bedwars.generator.DiamondGen;
-import com.jaeheonshim.bedwars.generator.EmeraldGen;
-import com.jaeheonshim.bedwars.generator.IronGen;
-import com.jaeheonshim.bedwars.generator.ItemGen;
+import com.jaeheonshim.bedwars.generator.*;
+import com.jaeheonshim.bedwars.shop.BedwarsTeamShop;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
@@ -17,7 +15,9 @@ public class BedwarsGame implements Disposable {
     private List<ItemGen> itemGens = new ArrayList<>();
     private List<BedwarsTeam> teams = new ArrayList<>();
     private List<Location> itemShops = new ArrayList<>();
+    private List<Location> teamShops = new ArrayList<>();
     private List<LivingEntity> shopVillagers = new ArrayList<>();
+    private List<LivingEntity> teamShopVillagers = new ArrayList<>();
 
     public BedwarsGame() {
         world = Bukkit.getServer().getWorlds().get(0);
@@ -25,6 +25,8 @@ public class BedwarsGame implements Disposable {
         itemGens.add(new EmeraldGen(new Location(world, -19, 101, 0)));
         itemGens.add(new DiamondGen(new Location(world, 9, 101, 21)));
         itemGens.add(new IronGen(new Location(world, -14, 101, 26)));
+        itemGens.add(new GoldGen(new Location(world, -14, 101, 26)));
+
         BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.BLUE);
         BedwarsTeam anotherTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.RED);
         sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
@@ -32,7 +34,8 @@ public class BedwarsGame implements Disposable {
         teams.add(sampleTeam);
         teams.add(anotherTeam);
 
-        itemShops.add(new Location(world, -19, 102, 24));
+        itemShops.add(new Location(world, -19, 101, 24));
+        teamShops.add(new Location(world, -19, 101, 20));
 
         init();
     }
@@ -45,6 +48,15 @@ public class BedwarsGame implements Disposable {
             villager.setCustomName(ChatColor.AQUA + "ITEM SHOP");
             villager.setCustomNameVisible(true);
             shopVillagers.add(villager);
+        }
+
+        for(Location location : teamShops) {
+            LivingEntity villager = ((LivingEntity) location.getWorld().spawnEntity(location.add(0.5, 0, 0.5), EntityType.VILLAGER));
+            villager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, Integer.MAX_VALUE, 10000, false, false));
+            villager.setCollidable(false);
+            villager.setCustomName(ChatColor.AQUA + BedwarsTeamShop.TITLE);
+            villager.setCustomNameVisible(true);
+            teamShopVillagers.add(villager);
         }
     }
 
@@ -112,6 +124,10 @@ public class BedwarsGame implements Disposable {
         for(LivingEntity entity : shopVillagers) {
             entity.remove();
         }
+
+        for(LivingEntity entity : teamShopVillagers) {
+            entity.remove();
+        }
     }
 
     public World getWorld() {
@@ -120,5 +136,9 @@ public class BedwarsGame implements Disposable {
 
     public List<LivingEntity> getShopVillagers() {
         return new ArrayList<>(shopVillagers);
+    }
+
+    public List<LivingEntity> getTeamShopVillagers() {
+        return new ArrayList<>(teamShopVillagers);
     }
 }

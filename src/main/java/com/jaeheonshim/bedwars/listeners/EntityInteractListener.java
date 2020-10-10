@@ -3,6 +3,7 @@ package com.jaeheonshim.bedwars.listeners;
 import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.shop.BedwarsShop;
+import com.jaeheonshim.bedwars.shop.BedwarsTeamShop;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,9 @@ public class EntityInteractListener implements Listener {
                 if(game.getShopVillagers().contains(livingEntity)) {
                     event.setCancelled(true);
                     event.getPlayer().openInventory(BedwarsShop.getInventory(event.getPlayer()));
+                } else if(game.getTeamShopVillagers().contains(livingEntity)) {
+                    event.setCancelled(true);
+                    event.getPlayer().openInventory(BedwarsTeamShop.getInventory(event.getPlayer()));
                 }
             }
         }

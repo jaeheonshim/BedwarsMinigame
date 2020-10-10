@@ -13,6 +13,8 @@ public class BedwarsTeam {
     private Location bedLocation;
     private Location respawnLocation;
 
+    private boolean sharpness;
+
     private Map<String, BedwarsPlayer> teamPlayers = new HashMap();
 
     public BedwarsTeam(Location bedLocation, Location respawnLocation, DyeColor teamColor) {
@@ -51,5 +53,16 @@ public class BedwarsTeam {
 
     public DyeColor getTeamColor() {
         return teamColor;
+    }
+
+    public void setSharpness(boolean sharpness) {
+        this.sharpness = sharpness;
+        if(sharpness) {
+            teamPlayers.values().forEach(BedwarsPlayer::updateSharpness);
+        }
+    }
+
+    public boolean isSharpness() {
+        return sharpness;
     }
 }
