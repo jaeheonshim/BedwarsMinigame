@@ -10,6 +10,8 @@ import com.jaeheonshim.bedwars.shop.blocks.EndStoneItem;
 import com.jaeheonshim.bedwars.shop.blocks.ObsidianItem;
 import com.jaeheonshim.bedwars.shop.blocks.WoodItem;
 import com.jaeheonshim.bedwars.shop.blocks.WoolItem;
+import com.jaeheonshim.bedwars.shop.utility.FireballItem;
+import com.jaeheonshim.bedwars.shop.utility.TntItem;
 import com.jaeheonshim.bedwars.shop.weapons.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,12 +32,13 @@ public class BedwarsShop {
             null, null, null, null, null, null, null, null, null,
             null, new WoolItem(), new WoodItem(), new EndStoneItem(), new ObsidianItem(), null, new PickaxeItem(), new ShearsItem(), null,
             null, new StoneSwordItem(), new IronSwordItem(), new DiamondSwordItem(), new KnockbackStickItem(), null, new AxeItem(), null, null,
-            null, new ChainmailArmorItem(), new IronArmorItem(), new DiamondArmorItem()
+            null, new ChainmailArmorItem(), new IronArmorItem(), new DiamondArmorItem(), null, null, null, null, null,
+            null, new TntItem(), new FireballItem()
     );
     public static final String TITLE = "Item Shop";
 
     public static Inventory getInventory(Player player) {
-        Inventory inventory = Bukkit.createInventory(null, 36, TITLE);
+        Inventory inventory = Bukkit.createInventory(null, 45, TITLE);
         for(int i = 0; i < items.size(); i++) {
             ShopItem item = items.get(i);
             if(item != null) {
@@ -66,6 +69,7 @@ public class BedwarsShop {
                     String res = item.modifyPlayer(bedwarsPlayer, player);
                     if(res != null) {
                         player.sendMessage(res);
+                        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 10, 0);
                         return false;
                     }
                     removeItem(player, new ItemStack(item.getMaterial()), item.getCost());
