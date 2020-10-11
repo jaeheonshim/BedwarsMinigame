@@ -15,7 +15,7 @@ public class TntPlaceListener implements Listener {
         BedwarsGameManager manager = BedwarsGameManager.getInstance();
         if(event.getBlock().getType() == Material.TNT && manager.getGameOfPlayer(event.getPlayer().getUniqueId().toString()) != null) {
             event.getBlock().setType(Material.AIR);
-            event.getBlock().getLocation().getWorld().spawnEntity(event.getBlock().getLocation(), EntityType.PRIMED_TNT);
+            event.getBlock().getLocation().getWorld().spawnEntity(event.getBlock().getLocation().add(0.5, 0, 0.5), EntityType.PRIMED_TNT);
         }
     }
 }

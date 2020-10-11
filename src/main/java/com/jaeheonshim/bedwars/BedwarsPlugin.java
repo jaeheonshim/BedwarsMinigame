@@ -19,6 +19,9 @@ public class BedwarsPlugin extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new FireballLaunchListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerPickupItem(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(), this);
+        Bukkit.getPluginManager().registerEvents(new TntExplodeBlockListener(), this);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new GameTicker(), 0, 10);
     }

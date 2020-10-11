@@ -19,6 +19,8 @@ public class BedwarsGame implements Disposable {
     private List<LivingEntity> shopVillagers = new ArrayList<>();
     private List<LivingEntity> teamShopVillagers = new ArrayList<>();
 
+    private Set<Location> playerPlace = new HashSet<>();
+
     public BedwarsGame() {
         world = Bukkit.getServer().getWorlds().get(0);
         itemGens.add(new EmeraldGen(new Location(world, 0, 101, 0), true));
@@ -139,5 +141,13 @@ public class BedwarsGame implements Disposable {
 
     public List<LivingEntity> getTeamShopVillagers() {
         return new ArrayList<>(teamShopVillagers);
+    }
+
+    public boolean isBreakable(Location location) {
+        return playerPlace.contains(location);
+    }
+
+    public void addPlacedBlock(Location location) {
+        playerPlace.add(location);
     }
 }
