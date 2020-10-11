@@ -249,4 +249,8 @@ public class BedwarsPlayer {
     public boolean isAfk() {
         return isAfk;
     }
+
+    public boolean isDead() {
+        return isDead;
+    }
 }
