@@ -4,6 +4,7 @@ import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.Util;
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import com.jaeheonshim.bedwars.domain.BedwarsTeam;
+import com.jaeheonshim.bedwars.shop.team.ArmorUpgrade;
 import com.jaeheonshim.bedwars.shop.team.ForgeUpgrade;
 import com.jaeheonshim.bedwars.shop.team.SharpenedSwords;
 import org.bukkit.Bukkit;
@@ -21,7 +22,7 @@ import java.util.List;
 public class BedwarsTeamShop {
     private static final List<TeamShopItem> items = Arrays.asList(
             null, null, null, null, null, null, null, null, null,
-            null, new SharpenedSwords(), new ForgeUpgrade()
+            null, new SharpenedSwords(), new ForgeUpgrade(), new ArmorUpgrade()
     );
     public static final String TITLE = "Team Upgrades";
 

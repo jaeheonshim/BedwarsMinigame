@@ -120,6 +120,8 @@ public class BedwarsPlayer {
             defaultSword.addEnchantment(Enchantment.DAMAGE_ALL, 3);
         }
         player.getInventory().addItem(defaultSword);
+
+        setArmorEnchant(team.getArmorEnchantLevel());
     }
 
     public void respawn() {
@@ -158,6 +160,33 @@ public class BedwarsPlayer {
 
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
         player.getInventory().setArmorContents(getArmor());
+    }
+
+    public void setArmorEnchant(ArmorEnchantLevel level) {
+        switch(level) {
+            case PROT_I:
+                enchantArmor(1);
+                break;
+            case PROT_II:
+                enchantArmor(2);
+                break;
+            case PROT_III:
+                enchantArmor(3);
+                break;
+        }
+    }
+
+    private void enchantArmor(int level) {
+        if(level < 1) {
+            return;
+        }
+
+        Player player = Bukkit.getPlayer(UUID.fromString(uuid));
+        if(player != null) {
+            for (ItemStack armorContent : player.getInventory().getArmorContents()) {
+                armorContent.addEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, level);
+            }
+        }
     }
 
     public ItemStack colorLeatherArmor(ItemStack item) {

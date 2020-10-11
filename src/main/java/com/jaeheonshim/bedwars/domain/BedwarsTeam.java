@@ -22,6 +22,7 @@ public class BedwarsTeam implements Disposable {
     private Location genLocation;
 
     private BaseGenLevel genLevel = BaseGenLevel.NONE;
+    private ArmorEnchantLevel armorEnchantLevel = ArmorEnchantLevel.NONE;
 
     private boolean sharpness;
 
@@ -106,6 +107,17 @@ public class BedwarsTeam implements Disposable {
 
     public BaseGenLevel getGenLevel() {
         return genLevel;
+    }
+
+    public void updateArmorEnchantLevel(ArmorEnchantLevel level) {
+        this.armorEnchantLevel = level;
+        for(BedwarsPlayer player : teamPlayers.values()) {
+            player.setArmorEnchant(level);
+        }
+    }
+
+    public ArmorEnchantLevel getArmorEnchantLevel() {
+        return armorEnchantLevel;
     }
 
     @Override
