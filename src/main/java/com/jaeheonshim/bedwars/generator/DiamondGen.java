@@ -13,7 +13,7 @@ public class DiamondGen extends ItemGen implements Disposable {
     private ArmorStand as;
 
     public DiamondGen(Location location) {
-        super(new ItemStack(Material.DIAMOND), Duration.ofMinutes(1).plus(Duration.ofSeconds(30)).toMillis(), location);
+        super(new ItemStack(Material.DIAMOND), Duration.ofSeconds(45).toMillis(), location);
         as = location.getWorld().spawn(location, ArmorStand.class);
         as.setCustomNameVisible(true);
         as.setVisible(false);

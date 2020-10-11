@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 

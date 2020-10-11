@@ -7,6 +7,7 @@ import org.bukkit.*;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.*;
 
@@ -21,21 +22,31 @@ public class BedwarsGame implements Disposable {
 
     private Set<Location> playerPlace = new HashSet<>();
 
+    private int deathYPos;
+
     public BedwarsGame() {
+        deathYPos = 0;
+
         world = Bukkit.getServer().getWorlds().get(0);
-        itemGens.add(new EmeraldGen(new Location(world, 0, 101, 0), true));
-        itemGens.add(new EmeraldGen(new Location(world, -19, 101, 0), true));
-        itemGens.add(new DiamondGen(new Location(world, 9, 101, 21)));
+        itemGens.add(new EmeraldGen(new Location(world, 1, 69, 6), true));
+        itemGens.add(new EmeraldGen(new Location(world, -1, 69, -6), true));
 
-        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), new Location(world, -14, 101, 26), DyeColor.BLUE);
-        BedwarsTeam anotherTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), new Location(world, -14, 101, 26), DyeColor.RED);
-        sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
-        sampleTeam.addPlayer(new BedwarsPlayer("4751d842-0779-4632-adac-852ec5e3b6de", anotherTeam));
-        teams.add(sampleTeam);
-        teams.add(anotherTeam);
+        itemGens.add(new DiamondGen(new Location(world, 0, 69, -34)));
+        itemGens.add(new DiamondGen(new Location(world, 0, 69, 34)));
 
-        itemShops.add(new Location(world, -19, 101, 24));
-        teamShops.add(new Location(world, -19, 101, 20));
+        BedwarsTeam blueTeam = new BedwarsTeam(new Location(world, 30, 70, 0), new Location(world, 38, 70, 0), new Location(world, 44, 70, 0), DyeColor.BLUE);
+        BedwarsTeam redTeam = new BedwarsTeam(new Location(world, -30, 70, 0), new Location(world, -38, 70, 0), new Location(world, -44, 70, 0), DyeColor.RED);
+
+        blueTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", blueTeam));
+        redTeam.addPlayer(new BedwarsPlayer("d663f687-1ad4-42ef-9771-973da4836e7d", redTeam));
+        teams.add(blueTeam);
+        teams.add(redTeam);
+
+        itemShops.add(new Location(world, 39, 71, 6));
+        itemShops.add(new Location(world, -39, 71, 6));
+
+        teamShops.add(new Location(world, 39, 71, -6));
+        teamShops.add(new Location(world, -39, 71, -6));
 
         init();
     }
@@ -73,7 +84,7 @@ public class BedwarsGame implements Disposable {
         }
     }
 
-    public void handleBreakBed(Location location) {
+    public BedwarsTeam getTeamOfBed(Location location) {
         BedwarsTeam team = null;
         for(BedwarsTeam eachTeam : teams) {
             if(eachTeam.getBedLocation().equals(location)) {
@@ -82,12 +93,18 @@ public class BedwarsGame implements Disposable {
             }
         }
 
+        return team;
+    }
+
+    public BedwarsTeam handleBreakBed(BedwarsPlayer breakPlayer, Location location) {
+        BedwarsTeam team = getTeamOfBed(location);
+
         if(team == null) {
-            return;
+            return null;
         }
 
         if(team.isBedBroken()) {
-            return;
+            return null;
         }
 
         team.setBedBroken(true);
@@ -95,10 +112,12 @@ public class BedwarsGame implements Disposable {
         for(BedwarsPlayer player : team.getTeamPlayers().values()) {
             Player bukkitPlayer = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
             if(bukkitPlayer.isOnline()) {
-                bukkitPlayer.playSound(bukkitPlayer.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
+                broadcastSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
                 bukkitPlayer.sendTitle(ChatColor.RED + "BED DESTROYED", ChatColor.YELLOW + "You will no longer respawn when you die!", 5, 80, 10);
             }
         }
+
+        return team;
     }
 
     public List<BedwarsTeam> getTeams() {
@@ -111,6 +130,17 @@ public class BedwarsGame implements Disposable {
                 Player playerBukkit = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
                 if(playerBukkit != null) {
                     playerBukkit.sendMessage(message);
+                }
+            }
+        }
+    }
+
+    public void broadcastSound(Sound sound, float v, float v1) {
+        for(BedwarsTeam team : teams) {
+            for(BedwarsPlayer player : team.getTeamPlayers().values()) {
+                Player playerBukkit = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
+                if(playerBukkit != null) {
+                    playerBukkit.playSound(playerBukkit.getLocation(), sound, v, v1);
                 }
             }
         }
@@ -149,5 +179,9 @@ public class BedwarsGame implements Disposable {
 
     public void addPlacedBlock(Location location) {
         playerPlace.add(location);
+    }
+
+    public int getDeathYPos() {
+        return deathYPos;
     }
 }

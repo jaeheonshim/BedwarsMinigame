@@ -15,7 +15,7 @@ public class PlayerPickupItem implements Listener {
             Player player = ((Player) event.getEntity());
             BedwarsPlayer bwPlayer = BedwarsGameManager.getInstance().getBedwarsPlayer(player.getUniqueId().toString());
             if(bwPlayer != null) {
-                if(bwPlayer.isAfk() || (bwPlayer.getTeam().isBedBroken() && bwPlayer.isDead())) {
+                if(bwPlayer.isAfk() || bwPlayer.isDead()) {
                     event.setCancelled(true);
                 }
             }

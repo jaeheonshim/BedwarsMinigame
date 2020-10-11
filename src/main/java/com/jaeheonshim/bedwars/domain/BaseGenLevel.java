@@ -7,8 +7,8 @@ public enum BaseGenLevel {
     EMERALD_FORGE(BaseGenLevel.DEFAULT_IRON * 1.5, BaseGenLevel.DEFAULT_GOLD * 1.5),
     MOLTEN_FORGE(BaseGenLevel.DEFAULT_IRON * 2, BaseGenLevel.DEFAULT_GOLD * 2);
 
-    public static final long DEFAULT_GOLD = 18000;
-    public static final long DEFAULT_IRON = 6000;
+    public static final long DEFAULT_GOLD = 5000;
+    public static final long DEFAULT_IRON = 1000;
     private long iron;
     private long gold;
 

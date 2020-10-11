@@ -103,7 +103,6 @@ public class Util {
         return wool.get(dyeColors.indexOf(color));
     }
 
-
     public static ChatColor getChatFromDye(DyeColor color) {
         return chatColors.get(dyeColors.indexOf(color));
     }

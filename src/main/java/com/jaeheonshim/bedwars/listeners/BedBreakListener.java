@@ -3,7 +3,10 @@ package com.jaeheonshim.bedwars.listeners;
 import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.Util;
+import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
+import com.jaeheonshim.bedwars.domain.BedwarsTeam;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.event.EventHandler;
@@ -19,13 +22,27 @@ public class BedBreakListener implements Listener {
         if(Util.beds.contains(event.getBlock().getType())) {
             BedwarsGameManager gameManager = BedwarsGameManager.getInstance();
             BedwarsGame game = gameManager.getGameOfPlayer(event.getPlayer().getUniqueId().toString());
+            BedwarsPlayer breakPlayer = gameManager.getBedwarsPlayer(event.getPlayer().getUniqueId().toString());
             Location bedLocation = event.getBlock().getLocation();
             Bed blockData = (Bed) event.getBlock().getBlockData();
+
             if(blockData.getPart() == Bed.Part.HEAD) {
                 bedLocation.subtract(blockData.getFacing().getDirection());
             }
-            System.out.println(event.getPlayer().getUniqueId().toString());
-            gameManager.getGameOfPlayer(event.getPlayer().getUniqueId().toString()).handleBreakBed(bedLocation);
+
+            BedwarsTeam team = game.getTeamOfBed(bedLocation);
+            if(team.equals(breakPlayer.getTeam())) {
+                event.getPlayer().sendMessage(ChatColor.RED + "You can't break your own bed!");
+                event.setCancelled(true);
+                return;
+            }
+
+            BedwarsTeam brokenTeam = gameManager.getGameOfPlayer(event.getPlayer().getUniqueId().toString()).handleBreakBed(breakPlayer, bedLocation);
+            game.broadcastMessage("---------------------------------------" +
+                    "\n\n\n" +
+                    Util.getChatFromDye(brokenTeam.getTeamColor()) + brokenTeam.getTeamColor().name() + " bed" + ChatColor.RESET + ChatColor.GRAY + " was broken by " + ChatColor.RESET + Util.getChatFromDye(breakPlayer.getTeam().getTeamColor()) + event.getPlayer().getDisplayName() + ChatColor.RESET +
+                    "!\n\n" +
+                    "---------------------------------------");
             event.setDropItems(false);
         }
     }

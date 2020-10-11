@@ -1,6 +1,7 @@
 package com.jaeheonshim.bedwars.listeners;
 
 import com.jaeheonshim.bedwars.BedwarsGameManager;
+import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.domain.BedwarsPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,6 +17,11 @@ public class PlayerMoveListener implements Listener {
         if(bwplayer != null) {
             bwplayer.setAfk(false);
             bwplayer.resetAfkTimer();
+
+            BedwarsGame game = BedwarsGameManager.getInstance().getGameOfPlayer(player.getUniqueId().toString());
+            if(player.getLocation().getY() <= game.getDeathYPos()) {
+                bwplayer.handleDeath();
+            }
         }
     }
 }
