@@ -16,7 +16,7 @@ public class SharpenedSwords extends TeamShopItem {
     }
 
     @Override
-    public int getCost() {
+    public int getCost(BedwarsTeam team) {
         return 8;
     }
 
@@ -39,7 +39,7 @@ public class SharpenedSwords extends TeamShopItem {
     }
 
     @Override
-    public String getName() {
+    public String getName(BedwarsTeam team) {
         return "Sharpened Swords";
     }
 }

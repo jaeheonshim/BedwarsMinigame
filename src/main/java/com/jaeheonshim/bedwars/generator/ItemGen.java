@@ -36,4 +36,8 @@ public abstract class ItemGen implements Disposable {
     public void setInterval(long t) {
         this.intervalMillis = t;
     }
+
+    public Location getSpawnLocation() {
+        return spawnLocation;
+    }
 }

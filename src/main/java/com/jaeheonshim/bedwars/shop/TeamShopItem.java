@@ -8,8 +8,8 @@ import org.bukkit.inventory.ItemStack;
 
 public abstract class TeamShopItem {
     public abstract Material getMaterial();
-    public abstract int getCost();
+    public abstract int getCost(BedwarsTeam team);
     public abstract ItemStack getItem(BedwarsPlayer bwplayer, Player player);
     public abstract String modifyPlayer(BedwarsTeam team, Player player);
-    public abstract String getName();
+    public abstract String getName(BedwarsTeam team);
 }

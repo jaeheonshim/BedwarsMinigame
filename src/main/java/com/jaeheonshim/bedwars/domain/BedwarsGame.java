@@ -21,14 +21,12 @@ public class BedwarsGame implements Disposable {
 
     public BedwarsGame() {
         world = Bukkit.getServer().getWorlds().get(0);
-        itemGens.add(new EmeraldGen(new Location(world, 0, 101, 0)));
-        itemGens.add(new EmeraldGen(new Location(world, -19, 101, 0)));
+        itemGens.add(new EmeraldGen(new Location(world, 0, 101, 0), true));
+        itemGens.add(new EmeraldGen(new Location(world, -19, 101, 0), true));
         itemGens.add(new DiamondGen(new Location(world, 9, 101, 21)));
-        itemGens.add(new IronGen(new Location(world, -14, 101, 26)));
-        itemGens.add(new GoldGen(new Location(world, -14, 101, 26)));
 
-        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.BLUE);
-        BedwarsTeam anotherTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), DyeColor.RED);
+        BedwarsTeam sampleTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), new Location(world, -14, 101, 26), DyeColor.BLUE);
+        BedwarsTeam anotherTeam = new BedwarsTeam(new Location(world, -14, 101, 20), new Location(world, -14, 102, 24), new Location(world, -14, 101, 26), DyeColor.RED);
         sampleTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", sampleTeam));
         sampleTeam.addPlayer(new BedwarsPlayer("4751d842-0779-4632-adac-852ec5e3b6de", anotherTeam));
         teams.add(sampleTeam);
@@ -69,6 +67,7 @@ public class BedwarsGame implements Disposable {
             for(BedwarsPlayer player : team.getTeamPlayers().values()) {
                 player.tick(delta);
             }
+            team.getGenerators().forEach(gen -> gen.tick(delta));
         }
     }
 

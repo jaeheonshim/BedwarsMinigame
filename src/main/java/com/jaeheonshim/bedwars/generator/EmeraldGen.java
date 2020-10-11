@@ -11,10 +11,10 @@ import java.time.Duration;
 public class EmeraldGen extends ItemGen {
     private ArmorStand as;
 
-    public EmeraldGen(Location location) {
+    public EmeraldGen(Location location, boolean showName) {
         super(new ItemStack(Material.EMERALD), Duration.ofMinutes(1).plus(Duration.ofSeconds(30)).toMillis(), location);
         as = location.getWorld().spawn(location, ArmorStand.class);
-        as.setCustomNameVisible(true);
+        as.setCustomNameVisible(showName);
         as.setVisible(false);
     }
 
