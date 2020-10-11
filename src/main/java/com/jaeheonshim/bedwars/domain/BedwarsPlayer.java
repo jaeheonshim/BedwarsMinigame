@@ -15,6 +15,8 @@ import java.time.Duration;
 import java.util.UUID;
 
 public class BedwarsPlayer {
+    public static final long AFK_THRESHOLD = Duration.ofSeconds(10).toMillis();
+
     private String uuid;
     private int kills;
     private int finalKills;
@@ -22,6 +24,8 @@ public class BedwarsPlayer {
     private ArmorLevel armorLevel = ArmorLevel.LEATHER;
 
     private boolean isDead;
+    private boolean isAfk;
+    private long afkTimer = AFK_THRESHOLD;
     private long deathMessageTimer;
     private long respawnTimer = -1;
     private long pvpTagTimer;
@@ -69,6 +73,11 @@ public class BedwarsPlayer {
         pvpTagTimer -= delta;
         if(pvpTagTimer <= 0) {
             pvpTagUuid = null;
+        }
+
+        afkTimer -= delta;
+        if(afkTimer <= 0) {
+            isAfk = true;
         }
     }
 
@@ -227,5 +236,17 @@ public class BedwarsPlayer {
                 }
             }
         }
+    }
+
+    public void resetAfkTimer() {
+        afkTimer = AFK_THRESHOLD;
+    }
+
+    public void setAfk(boolean afk) {
+        isAfk = afk;
+    }
+
+    public boolean isAfk() {
+        return isAfk;
     }
 }
