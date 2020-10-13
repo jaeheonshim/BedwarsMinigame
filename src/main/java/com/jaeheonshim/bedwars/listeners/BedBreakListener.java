@@ -1,5 +1,6 @@
 package com.jaeheonshim.bedwars.listeners;
 
+import com.jaeheonshim.bedwars.domain.BedBreakResult;
 import com.jaeheonshim.bedwars.domain.BedwarsGame;
 import com.jaeheonshim.bedwars.BedwarsGameManager;
 import com.jaeheonshim.bedwars.Util;
@@ -17,8 +18,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BedBreakListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handleBedBreak(BlockBreakEvent event) {
-        Bukkit.getLogger().info("Block broken of type " + event.getBlock().getType().name());
-
         if(Util.beds.contains(event.getBlock().getType())) {
             BedwarsGameManager gameManager = BedwarsGameManager.getInstance();
             BedwarsGame game = gameManager.getGameOfPlayer(event.getPlayer().getUniqueId().toString());
@@ -35,8 +34,19 @@ public class BedBreakListener implements Listener {
             }
 
             BedwarsTeam team = game.getTeamOfBed(bedLocation);
+
+            if(team == null) {
+                return;
+            }
+
             if(breakPlayer.getTeam().equals(team)) {
                 event.getPlayer().sendMessage(ChatColor.RED + "You can't break your own bed!");
+                return;
+            }
+
+            BedBreakResult result = game.handleBreakBed(team);
+
+            if(result != BedBreakResult.OK) {
                 event.setCancelled(true);
                 return;
             }

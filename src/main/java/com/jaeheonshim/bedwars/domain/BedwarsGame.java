@@ -41,7 +41,7 @@ public class BedwarsGame implements Disposable {
         BedwarsTeam redTeam = new BedwarsTeam(new Location(world, -30, 70, 0), new Location(world, -38, 70, 0), new Location(world, -44, 70, 0), DyeColor.RED);
 
         blueTeam.addPlayer(new BedwarsPlayer("028fce20-ab39-4bd3-b829-8e027ee6a72b", blueTeam));
-        redTeam.addPlayer(new BedwarsPlayer("d663f687-1ad4-42ef-9771-973da4836e7d", redTeam));
+        redTeam.addPlayer(new BedwarsPlayer("4751d842-0779-4632-adac-852ec5e3b6de", redTeam));
         teams.add(blueTeam);
         teams.add(redTeam);
 
@@ -100,28 +100,26 @@ public class BedwarsGame implements Disposable {
         return null;
     }
 
-    public BedwarsTeam handleBreakBed(BedwarsPlayer breakPlayer, Location location) {
-        BedwarsTeam team = getTeamOfBed(location);
-
+    public BedBreakResult handleBreakBed(BedwarsTeam team) {
         if(team == null) {
-            return null;
+            return BedBreakResult.TEAM_NOT_FOUND;
         }
 
         if(team.isBedBroken()) {
-            return null;
+            return BedBreakResult.ALREADY_BROKEN;
         }
 
         team.setBedBroken(true);
 
+        broadcastSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
         for(BedwarsPlayer player : team.getTeamPlayers().values()) {
             Player bukkitPlayer = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
             if(bukkitPlayer != null && bukkitPlayer.isOnline()) {
-                broadcastSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
                 bukkitPlayer.sendTitle(ChatColor.RED + "BED DESTROYED", ChatColor.YELLOW + "You will no longer respawn when you die!", 5, 80, 10);
             }
         }
 
-        return team;
+        return BedBreakResult.OK;
     }
 
     public List<BedwarsTeam> getTeams() {

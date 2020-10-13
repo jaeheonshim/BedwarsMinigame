@@ -1,5 +1,7 @@
 package com.jaeheonshim.bedwars.domain;
 
+import com.jaeheonshim.bedwars.BedwarsGameManager;
+import com.jaeheonshim.bedwars.Util;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Item;
@@ -47,6 +49,15 @@ public class BedwarsPlayer {
         Player player = Bukkit.getServer().getPlayer(UUID.fromString(uuid));
         player.getInventory().clear();
         player.setFireTicks(0);
+
+        if(this.getPvpTaggedUuid() != null) {
+            Player killer = Bukkit.getServer().getPlayer(UUID.fromString(this.getPvpTaggedUuid()));
+            killer.playSound(killer.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 10, 4);
+
+            BedwarsGameManager instance = BedwarsGameManager.getInstance();
+            instance.getGameOfPlayer(this.getUuid())
+                    .broadcastMessage(killer == null ? "Unknown Player" : Util.getChatFromDye(instance.getBedwarsPlayer(killer.getUniqueId().toString()).getTeam().getTeamColor()) + killer.getDisplayName() + ChatColor.GRAY + " killed " + Util.getChatFromDye(this.getTeam().getTeamColor()) + player.getDisplayName() + ChatColor.RESET + ChatColor.BOLD + ChatColor.AQUA + (getTeam().isBedBroken() ? " FINAL KILL" : ""));
+        }
         pvpTagUuid = null;
 
         isDead = true;

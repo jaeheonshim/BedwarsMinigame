@@ -24,12 +24,6 @@ public class PlayerDamageListener implements Listener {
 
             if (bwplayer != null && player.getHealth() - event.getDamage() <= 0) {
                 event.setCancelled(true);
-                if(bwplayer.getPvpTaggedUuid() != null) {
-                    Player killer = Bukkit.getServer().getPlayer(UUID.fromString(bwplayer.getPvpTaggedUuid()));
-                    killer.playSound(killer.getLocation(), Sound.ENTITY_ARROW_HIT_PLAYER, 10, 4);
-                    instance.getGameOfPlayer(bwplayer.getUuid())
-                            .broadcastMessage(killer == null ? "Unknown Player" : Util.getChatFromDye(instance.getBedwarsPlayer(killer.getUniqueId().toString()).getTeam().getTeamColor()) + killer.getDisplayName() + ChatColor.GRAY + " killed " + Util.getChatFromDye(bwplayer.getTeam().getTeamColor()) + player.getDisplayName());
-                }
                 handleDeath(player);
             }
         }
