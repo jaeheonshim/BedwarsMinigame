@@ -1,9 +1,12 @@
 package com.jaeheonshim.bedwars.domain;
 
 import com.jaeheonshim.bedwars.Disposable;
+import com.jaeheonshim.bedwars.Util;
 import com.jaeheonshim.bedwars.generator.*;
 import com.jaeheonshim.bedwars.shop.BedwarsTeamShop;
 import org.bukkit.*;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -85,15 +88,16 @@ public class BedwarsGame implements Disposable {
     }
 
     public BedwarsTeam getTeamOfBed(Location location) {
-        BedwarsTeam team = null;
         for(BedwarsTeam eachTeam : teams) {
-            if(eachTeam.getBedLocation().equals(location)) {
-                team = eachTeam;
-                break;
+            Block block = world.getBlockAt(location);
+            Location bedLocation = block.getLocation();
+
+            if((eachTeam.getBedLocation().equals(bedLocation) || eachTeam.getBedLocation().equals(bedLocation.add(((Bed) block.getBlockData()).getFacing().getDirection())))) {
+                return eachTeam;
             }
         }
 
-        return team;
+        return null;
     }
 
     public BedwarsTeam handleBreakBed(BedwarsPlayer breakPlayer, Location location) {
@@ -111,7 +115,7 @@ public class BedwarsGame implements Disposable {
 
         for(BedwarsPlayer player : team.getTeamPlayers().values()) {
             Player bukkitPlayer = Bukkit.getServer().getPlayer(UUID.fromString(player.getUuid()));
-            if(bukkitPlayer.isOnline()) {
+            if(bukkitPlayer != null && bukkitPlayer.isOnline()) {
                 broadcastSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 10, 1);
                 bukkitPlayer.sendTitle(ChatColor.RED + "BED DESTROYED", ChatColor.YELLOW + "You will no longer respawn when you die!", 5, 80, 10);
             }

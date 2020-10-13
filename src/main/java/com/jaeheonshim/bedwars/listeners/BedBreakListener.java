@@ -26,21 +26,24 @@ public class BedBreakListener implements Listener {
             Location bedLocation = event.getBlock().getLocation();
             Bed blockData = (Bed) event.getBlock().getBlockData();
 
+            if(breakPlayer == null || game == null) {
+                return;
+            }
+
             if(blockData.getPart() == Bed.Part.HEAD) {
                 bedLocation.subtract(blockData.getFacing().getDirection());
             }
 
             BedwarsTeam team = game.getTeamOfBed(bedLocation);
-            if(team.equals(breakPlayer.getTeam())) {
+            if(breakPlayer.getTeam().equals(team)) {
                 event.getPlayer().sendMessage(ChatColor.RED + "You can't break your own bed!");
                 event.setCancelled(true);
                 return;
             }
 
-            BedwarsTeam brokenTeam = gameManager.getGameOfPlayer(event.getPlayer().getUniqueId().toString()).handleBreakBed(breakPlayer, bedLocation);
             game.broadcastMessage("---------------------------------------" +
                     "\n\n\n" +
-                    Util.getChatFromDye(brokenTeam.getTeamColor()) + brokenTeam.getTeamColor().name() + " bed" + ChatColor.RESET + ChatColor.GRAY + " was broken by " + ChatColor.RESET + Util.getChatFromDye(breakPlayer.getTeam().getTeamColor()) + event.getPlayer().getDisplayName() + ChatColor.RESET +
+                    Util.getChatFromDye(team.getTeamColor()) + team.getTeamColor().name() + " bed" + ChatColor.RESET + ChatColor.GRAY + " was broken by " + ChatColor.RESET + Util.getChatFromDye(breakPlayer.getTeam().getTeamColor()) + event.getPlayer().getName() + ChatColor.RESET +
                     "!\n\n" +
                     "---------------------------------------");
             event.setDropItems(false);

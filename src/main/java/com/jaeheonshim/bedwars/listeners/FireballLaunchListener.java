@@ -16,7 +16,8 @@ public class FireballLaunchListener implements Listener {
         if(event.getMaterial() == Material.FIRE_CHARGE && manager.getGameOfPlayer(event.getPlayer().getUniqueId().toString()) != null) {
             event.setCancelled(true);
             event.getPlayer().getInventory().removeItem(new ItemStack(Material.FIRE_CHARGE));
-            event.getPlayer().getLocation().getWorld().spawn(event.getPlayer().getLocation(), Fireball.class);
+            event.getPlayer().launchProjectile(Fireball.class);
+            //event.getPlayer().getLocation().getWorld().spawn(event.getPlayer().getEyeLocation(), Fireball.class);
         }
     }
 }
